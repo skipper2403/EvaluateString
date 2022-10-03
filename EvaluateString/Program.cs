@@ -3,14 +3,14 @@
     public class Evaluation
     {
 
-        static char evaluation(char operand1 , char operand2 , Char Opr)
+        static char evaluation(char T , char F , Char Op)
         {
-            int t = Convert.ToInt32(operand1 == 'T');
-            int f = Convert.ToInt32(operand2 == 'T');
+            int t = Convert.ToInt32(T == 'T');
+            int f = Convert.ToInt32(F == 'T');
 
             bool result;
 
-            if(Opr == '&')
+            if(Op == '&')
             {
                 result = Convert.ToBoolean(t&f);
             }
@@ -29,44 +29,30 @@
             Stack<char> myStack = new Stack<char>();
             if (givenString.Length == 0)
             {
-                Console.WriteLine("string is empty. please look carefully before submitting.");return;
+                Console.WriteLine("Your string was empty. please provide a valid string.");return;
             }
             try
             {
                 myStack.Push(givenString[0]);
-                char operand1, operand2, opr, result;
+                char T, F, Op, result;
                 int stringLength = givenString.Length;
 
                 for(int i = 1; i < stringLength; i++)
                 {
                     if (givenString[i] == ')')
                     {
-                        operand1 = myStack.Pop();
-                        
-                        opr = myStack.Pop();
-
-                        operand2 = myStack.Pop();
-
+                        T = myStack.Peek();
                         myStack.Pop();
-                        result = evaluation(operand1, operand2, opr);
+                        Op = myStack.Peek();
+                        myStack.Pop();
+                        F = myStack.Peek();
+                        myStack.Pop();
+                        myStack.Pop();
+                        result = evaluation(T, F, Op);
                         myStack.Push(result);
                     }
                     else
                     {
-                        switch (givenString[i])
-                        {
-                            case 'T':
-                                break;
-                            case 'F':
-                                break ;
-                            case '&':
-                                break;
-                            case '|':
-                                break;
-                            default:
-                                Console.WriteLine("your string is wrong.");
-                                break;
-                        }
                         myStack.Push(givenString[i]);
                     }
                 }
